@@ -18,14 +18,11 @@ jobs:
     steps:
     - name: Checkout Source
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-    - name: Setup Java JDK
-      uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
-      with:
-        java-version: 25
-        distribution: temurin
-        cache: maven
-    - name: Maven Build
-      run: mvn -B -DskipTests package
+    - name: Use Node.js
+      uses: actions/setup-node@v7        
+      with:          
+        node-version: '20.x'      
+    - run: npm build
     - name: Black Duck SCA Full Scan
       if: ${{ github.event_name != 'pull_request' }}
       env:
